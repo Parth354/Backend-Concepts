@@ -106,9 +106,7 @@ public class WebhookService {
             //Formula : initialDelay * (multiplier ^ currentAttempt)
             long backOffDelay = (long) (INITIAL_DELAY_MS * Math.pow(MULTIPLIER , failedTask.getAttempt()));
 
-            WebhookTask retryTask = new WebhookTask(failedTask.getTargetUrl() , failedTask.getPayload(), nextAttempt , backOffDelay);
-
-            scheduleRetry(retryTask,backOffDelay);
+            scheduleRetry(failedTask,backOffDelay);
         }
         else {
             addLog(failedTask.getWebhookId(),nextAttempt ,"DLQ","Max retries reached. Moved to Dead Queue" ,0);
