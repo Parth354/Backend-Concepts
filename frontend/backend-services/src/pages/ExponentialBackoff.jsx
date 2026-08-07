@@ -35,7 +35,8 @@ export default function ExponentialBackoff() {
 
     const triggerWebhook = async () => {
         try {
-            await fetch(`${API_BASE}/webhooks/trigger`,
+            const receiverUrl = `${API_BASE}/mock-receiver`;
+            await fetch(`${API_BASE}/webhooks/trigger?url=${encodeURIComponent(receiverUrl)}`,
                 {
                     method:'POST'
                 }
